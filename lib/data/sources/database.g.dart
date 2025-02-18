@@ -21,6 +21,20 @@ class $ProfilesTable extends Profiles with drift.TableInfo<$ProfilesTable, Profi
       type: drift.DriftSqlType.string,
       requiredDuringInsert: true,
       defaultConstraints: drift.GeneratedColumn.constraintIsAlways('UNIQUE'));
+  static const drift.VerificationMeta _userHandleMeta = const drift.VerificationMeta('userHandle');
+  @override
+  late final drift.GeneratedColumn<String> userHandle = drift.GeneratedColumn<String>('user_handle', aliasedName, false,
+      additionalChecks: drift.GeneratedColumn.checkTextLength(maxTextLength: 120),
+      type: drift.DriftSqlType.string,
+      requiredDuringInsert: true,
+      defaultConstraints: drift.GeneratedColumn.constraintIsAlways('UNIQUE'));
+  static const drift.VerificationMeta _emailMeta = const drift.VerificationMeta('email');
+  @override
+  late final drift.GeneratedColumn<String> email = drift.GeneratedColumn<String>('email', aliasedName, false,
+      additionalChecks: drift.GeneratedColumn.checkTextLength(maxTextLength: 120),
+      type: drift.DriftSqlType.string,
+      requiredDuringInsert: true,
+      defaultConstraints: drift.GeneratedColumn.constraintIsAlways('UNIQUE'));
   static const drift.VerificationMeta _fullNameMeta = const drift.VerificationMeta('fullName');
   @override
   late final drift.GeneratedColumn<String> fullName = drift.GeneratedColumn<String>('full_name', aliasedName, false,
@@ -31,6 +45,14 @@ class $ProfilesTable extends Profiles with drift.TableInfo<$ProfilesTable, Profi
   static const drift.VerificationMeta _bioMeta = const drift.VerificationMeta('bio');
   @override
   late final drift.GeneratedColumn<String> bio = drift.GeneratedColumn<String>('bio', aliasedName, true, type: drift.DriftSqlType.string, requiredDuringInsert: false);
+  static const drift.VerificationMeta _countryMeta = const drift.VerificationMeta('country');
+  @override
+  late final drift.GeneratedColumn<String> country = drift.GeneratedColumn<String>('country', aliasedName, true,
+      additionalChecks: drift.GeneratedColumn.checkTextLength(maxTextLength: 50), type: drift.DriftSqlType.string, requiredDuringInsert: false);
+  static const drift.VerificationMeta _birthdateMeta = const drift.VerificationMeta('birthdate');
+  @override
+  late final drift.GeneratedColumn<DateTime> birthdate =
+      drift.GeneratedColumn<DateTime>('birthdate', aliasedName, true, type: drift.DriftSqlType.dateTime, requiredDuringInsert: false);
   static const drift.VerificationMeta _createdAtMeta = const drift.VerificationMeta('createdAt');
   @override
   late final drift.GeneratedColumn<DateTime> createdAt =
@@ -41,7 +63,7 @@ class $ProfilesTable extends Profiles with drift.TableInfo<$ProfilesTable, Profi
       drift.GeneratedColumn<DateTime>('updated_at', aliasedName, false, type: drift.DriftSqlType.dateTime, requiredDuringInsert: false, clientDefault: () => DateTime.now());
 
   @override
-  List<drift.GeneratedColumn> get $columns => [id, username, fullName, avatarUrl, bio, createdAt, updatedAt];
+  List<drift.GeneratedColumn> get $columns => [id, username, userHandle, email, fullName, avatarUrl, bio, country, birthdate, createdAt, updatedAt];
 
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -64,6 +86,16 @@ class $ProfilesTable extends Profiles with drift.TableInfo<$ProfilesTable, Profi
     } else if (isInserting) {
       context.missing(_usernameMeta);
     }
+    if (data.containsKey('user_handle')) {
+      context.handle(_userHandleMeta, userHandle.isAcceptableOrUnknown(data['user_handle']!, _userHandleMeta));
+    } else if (isInserting) {
+      context.missing(_userHandleMeta);
+    }
+    if (data.containsKey('email')) {
+      context.handle(_emailMeta, email.isAcceptableOrUnknown(data['email']!, _emailMeta));
+    } else if (isInserting) {
+      context.missing(_emailMeta);
+    }
     if (data.containsKey('full_name')) {
       context.handle(_fullNameMeta, fullName.isAcceptableOrUnknown(data['full_name']!, _fullNameMeta));
     } else if (isInserting) {
@@ -74,6 +106,12 @@ class $ProfilesTable extends Profiles with drift.TableInfo<$ProfilesTable, Profi
     }
     if (data.containsKey('bio')) {
       context.handle(_bioMeta, bio.isAcceptableOrUnknown(data['bio']!, _bioMeta));
+    }
+    if (data.containsKey('country')) {
+      context.handle(_countryMeta, country.isAcceptableOrUnknown(data['country']!, _countryMeta));
+    }
+    if (data.containsKey('birthdate')) {
+      context.handle(_birthdateMeta, birthdate.isAcceptableOrUnknown(data['birthdate']!, _birthdateMeta));
     }
     if (data.containsKey('created_at')) {
       context.handle(_createdAtMeta, createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
@@ -93,9 +131,13 @@ class $ProfilesTable extends Profiles with drift.TableInfo<$ProfilesTable, Profi
     return Profile(
       id: attachedDatabase.typeMapping.read(drift.DriftSqlType.string, data['${effectivePrefix}id'])!,
       username: attachedDatabase.typeMapping.read(drift.DriftSqlType.string, data['${effectivePrefix}username'])!,
+      userHandle: attachedDatabase.typeMapping.read(drift.DriftSqlType.string, data['${effectivePrefix}user_handle'])!,
+      email: attachedDatabase.typeMapping.read(drift.DriftSqlType.string, data['${effectivePrefix}email'])!,
       fullName: attachedDatabase.typeMapping.read(drift.DriftSqlType.string, data['${effectivePrefix}full_name'])!,
       avatarUrl: attachedDatabase.typeMapping.read(drift.DriftSqlType.string, data['${effectivePrefix}avatar_url']),
       bio: attachedDatabase.typeMapping.read(drift.DriftSqlType.string, data['${effectivePrefix}bio']),
+      country: attachedDatabase.typeMapping.read(drift.DriftSqlType.string, data['${effectivePrefix}country']),
+      birthdate: attachedDatabase.typeMapping.read(drift.DriftSqlType.dateTime, data['${effectivePrefix}birthdate']),
       createdAt: attachedDatabase.typeMapping.read(drift.DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
       updatedAt: attachedDatabase.typeMapping.read(drift.DriftSqlType.dateTime, data['${effectivePrefix}updated_at'])!,
     );
@@ -110,25 +152,48 @@ class $ProfilesTable extends Profiles with drift.TableInfo<$ProfilesTable, Profi
 class Profile extends drift.DataClass implements drift.Insertable<Profile> {
   final String id;
   final String username;
+  final String userHandle;
+  final String email;
   final String fullName;
   final String? avatarUrl;
   final String? bio;
+  final String? country;
+  final DateTime? birthdate;
   final DateTime createdAt;
   final DateTime updatedAt;
 
-  const Profile({required this.id, required this.username, required this.fullName, this.avatarUrl, this.bio, required this.createdAt, required this.updatedAt});
+  const Profile(
+      {required this.id,
+      required this.username,
+      required this.userHandle,
+      required this.email,
+      required this.fullName,
+      this.avatarUrl,
+      this.bio,
+      this.country,
+      this.birthdate,
+      required this.createdAt,
+      required this.updatedAt});
 
   @override
   Map<String, drift.Expression> toColumns(bool nullToAbsent) {
     final map = <String, drift.Expression>{};
     map['id'] = drift.Variable<String>(id);
     map['username'] = drift.Variable<String>(username);
+    map['user_handle'] = drift.Variable<String>(userHandle);
+    map['email'] = drift.Variable<String>(email);
     map['full_name'] = drift.Variable<String>(fullName);
     if (!nullToAbsent || avatarUrl != null) {
       map['avatar_url'] = drift.Variable<String>(avatarUrl);
     }
     if (!nullToAbsent || bio != null) {
       map['bio'] = drift.Variable<String>(bio);
+    }
+    if (!nullToAbsent || country != null) {
+      map['country'] = drift.Variable<String>(country);
+    }
+    if (!nullToAbsent || birthdate != null) {
+      map['birthdate'] = drift.Variable<DateTime>(birthdate);
     }
     map['created_at'] = drift.Variable<DateTime>(createdAt);
     map['updated_at'] = drift.Variable<DateTime>(updatedAt);
@@ -139,9 +204,13 @@ class Profile extends drift.DataClass implements drift.Insertable<Profile> {
     return ProfilesCompanion(
       id: drift.Value(id),
       username: drift.Value(username),
+      userHandle: drift.Value(userHandle),
+      email: drift.Value(email),
       fullName: drift.Value(fullName),
       avatarUrl: avatarUrl == null && nullToAbsent ? const drift.Value.absent() : drift.Value(avatarUrl),
       bio: bio == null && nullToAbsent ? const drift.Value.absent() : drift.Value(bio),
+      country: country == null && nullToAbsent ? const drift.Value.absent() : drift.Value(country),
+      birthdate: birthdate == null && nullToAbsent ? const drift.Value.absent() : drift.Value(birthdate),
       createdAt: drift.Value(createdAt),
       updatedAt: drift.Value(updatedAt),
     );
@@ -152,9 +221,13 @@ class Profile extends drift.DataClass implements drift.Insertable<Profile> {
     return Profile(
       id: serializer.fromJson<String>(json['id']),
       username: serializer.fromJson<String>(json['username']),
+      userHandle: serializer.fromJson<String>(json['userHandle']),
+      email: serializer.fromJson<String>(json['email']),
       fullName: serializer.fromJson<String>(json['fullName']),
       avatarUrl: serializer.fromJson<String?>(json['avatarUrl']),
       bio: serializer.fromJson<String?>(json['bio']),
+      country: serializer.fromJson<String?>(json['country']),
+      birthdate: serializer.fromJson<DateTime?>(json['birthdate']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
       updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
     );
@@ -166,9 +239,13 @@ class Profile extends drift.DataClass implements drift.Insertable<Profile> {
     return <String, dynamic>{
       'id': serializer.toJson<String>(id),
       'username': serializer.toJson<String>(username),
+      'userHandle': serializer.toJson<String>(userHandle),
+      'email': serializer.toJson<String>(email),
       'fullName': serializer.toJson<String>(fullName),
       'avatarUrl': serializer.toJson<String?>(avatarUrl),
       'bio': serializer.toJson<String?>(bio),
+      'country': serializer.toJson<String?>(country),
+      'birthdate': serializer.toJson<DateTime?>(birthdate),
       'createdAt': serializer.toJson<DateTime>(createdAt),
       'updatedAt': serializer.toJson<DateTime>(updatedAt),
     };
@@ -177,17 +254,25 @@ class Profile extends drift.DataClass implements drift.Insertable<Profile> {
   Profile copyWith(
           {String? id,
           String? username,
+          String? userHandle,
+          String? email,
           String? fullName,
           drift.Value<String?> avatarUrl = const drift.Value.absent(),
           drift.Value<String?> bio = const drift.Value.absent(),
+          drift.Value<String?> country = const drift.Value.absent(),
+          drift.Value<DateTime?> birthdate = const drift.Value.absent(),
           DateTime? createdAt,
           DateTime? updatedAt}) =>
       Profile(
         id: id ?? this.id,
         username: username ?? this.username,
+        userHandle: userHandle ?? this.userHandle,
+        email: email ?? this.email,
         fullName: fullName ?? this.fullName,
         avatarUrl: avatarUrl.present ? avatarUrl.value : this.avatarUrl,
         bio: bio.present ? bio.value : this.bio,
+        country: country.present ? country.value : this.country,
+        birthdate: birthdate.present ? birthdate.value : this.birthdate,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt,
       );
@@ -196,9 +281,13 @@ class Profile extends drift.DataClass implements drift.Insertable<Profile> {
     return Profile(
       id: data.id.present ? data.id.value : this.id,
       username: data.username.present ? data.username.value : this.username,
+      userHandle: data.userHandle.present ? data.userHandle.value : this.userHandle,
+      email: data.email.present ? data.email.value : this.email,
       fullName: data.fullName.present ? data.fullName.value : this.fullName,
       avatarUrl: data.avatarUrl.present ? data.avatarUrl.value : this.avatarUrl,
       bio: data.bio.present ? data.bio.value : this.bio,
+      country: data.country.present ? data.country.value : this.country,
+      birthdate: data.birthdate.present ? data.birthdate.value : this.birthdate,
       createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
       updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
     );
@@ -209,9 +298,13 @@ class Profile extends drift.DataClass implements drift.Insertable<Profile> {
     return (StringBuffer('Profile(')
           ..write('id: $id, ')
           ..write('username: $username, ')
+          ..write('userHandle: $userHandle, ')
+          ..write('email: $email, ')
           ..write('fullName: $fullName, ')
           ..write('avatarUrl: $avatarUrl, ')
           ..write('bio: $bio, ')
+          ..write('country: $country, ')
+          ..write('birthdate: $birthdate, ')
           ..write('createdAt: $createdAt, ')
           ..write('updatedAt: $updatedAt')
           ..write(')'))
@@ -219,7 +312,7 @@ class Profile extends drift.DataClass implements drift.Insertable<Profile> {
   }
 
   @override
-  int get hashCode => Object.hash(id, username, fullName, avatarUrl, bio, createdAt, updatedAt);
+  int get hashCode => Object.hash(id, username, userHandle, email, fullName, avatarUrl, bio, country, birthdate, createdAt, updatedAt);
 
   @override
   bool operator ==(Object other) =>
@@ -227,9 +320,13 @@ class Profile extends drift.DataClass implements drift.Insertable<Profile> {
       (other is Profile &&
           other.id == this.id &&
           other.username == this.username &&
+          other.userHandle == this.userHandle &&
+          other.email == this.email &&
           other.fullName == this.fullName &&
           other.avatarUrl == this.avatarUrl &&
           other.bio == this.bio &&
+          other.country == this.country &&
+          other.birthdate == this.birthdate &&
           other.createdAt == this.createdAt &&
           other.updatedAt == this.updatedAt);
 }
@@ -237,9 +334,13 @@ class Profile extends drift.DataClass implements drift.Insertable<Profile> {
 class ProfilesCompanion extends drift.UpdateCompanion<Profile> {
   final drift.Value<String> id;
   final drift.Value<String> username;
+  final drift.Value<String> userHandle;
+  final drift.Value<String> email;
   final drift.Value<String> fullName;
   final drift.Value<String?> avatarUrl;
   final drift.Value<String?> bio;
+  final drift.Value<String?> country;
+  final drift.Value<DateTime?> birthdate;
   final drift.Value<DateTime> createdAt;
   final drift.Value<DateTime> updatedAt;
   final drift.Value<int> rowid;
@@ -247,9 +348,13 @@ class ProfilesCompanion extends drift.UpdateCompanion<Profile> {
   const ProfilesCompanion({
     this.id = const drift.Value.absent(),
     this.username = const drift.Value.absent(),
+    this.userHandle = const drift.Value.absent(),
+    this.email = const drift.Value.absent(),
     this.fullName = const drift.Value.absent(),
     this.avatarUrl = const drift.Value.absent(),
     this.bio = const drift.Value.absent(),
+    this.country = const drift.Value.absent(),
+    this.birthdate = const drift.Value.absent(),
     this.createdAt = const drift.Value.absent(),
     this.updatedAt = const drift.Value.absent(),
     this.rowid = const drift.Value.absent(),
@@ -258,22 +363,32 @@ class ProfilesCompanion extends drift.UpdateCompanion<Profile> {
   ProfilesCompanion.insert({
     required String id,
     required String username,
+    required String userHandle,
+    required String email,
     required String fullName,
     this.avatarUrl = const drift.Value.absent(),
     this.bio = const drift.Value.absent(),
+    this.country = const drift.Value.absent(),
+    this.birthdate = const drift.Value.absent(),
     this.createdAt = const drift.Value.absent(),
     this.updatedAt = const drift.Value.absent(),
     this.rowid = const drift.Value.absent(),
   })  : id = drift.Value(id),
         username = drift.Value(username),
+        userHandle = drift.Value(userHandle),
+        email = drift.Value(email),
         fullName = drift.Value(fullName);
 
   static drift.Insertable<Profile> custom({
     drift.Expression<String>? id,
     drift.Expression<String>? username,
+    drift.Expression<String>? userHandle,
+    drift.Expression<String>? email,
     drift.Expression<String>? fullName,
     drift.Expression<String>? avatarUrl,
     drift.Expression<String>? bio,
+    drift.Expression<String>? country,
+    drift.Expression<DateTime>? birthdate,
     drift.Expression<DateTime>? createdAt,
     drift.Expression<DateTime>? updatedAt,
     drift.Expression<int>? rowid,
@@ -281,9 +396,13 @@ class ProfilesCompanion extends drift.UpdateCompanion<Profile> {
     return drift.RawValuesInsertable({
       if (id != null) 'id': id,
       if (username != null) 'username': username,
+      if (userHandle != null) 'user_handle': userHandle,
+      if (email != null) 'email': email,
       if (fullName != null) 'full_name': fullName,
       if (avatarUrl != null) 'avatar_url': avatarUrl,
       if (bio != null) 'bio': bio,
+      if (country != null) 'country': country,
+      if (birthdate != null) 'birthdate': birthdate,
       if (createdAt != null) 'created_at': createdAt,
       if (updatedAt != null) 'updated_at': updatedAt,
       if (rowid != null) 'rowid': rowid,
@@ -293,18 +412,26 @@ class ProfilesCompanion extends drift.UpdateCompanion<Profile> {
   ProfilesCompanion copyWith(
       {drift.Value<String>? id,
       drift.Value<String>? username,
+      drift.Value<String>? userHandle,
+      drift.Value<String>? email,
       drift.Value<String>? fullName,
       drift.Value<String?>? avatarUrl,
       drift.Value<String?>? bio,
+      drift.Value<String?>? country,
+      drift.Value<DateTime?>? birthdate,
       drift.Value<DateTime>? createdAt,
       drift.Value<DateTime>? updatedAt,
       drift.Value<int>? rowid}) {
     return ProfilesCompanion(
       id: id ?? this.id,
       username: username ?? this.username,
+      userHandle: userHandle ?? this.userHandle,
+      email: email ?? this.email,
       fullName: fullName ?? this.fullName,
       avatarUrl: avatarUrl ?? this.avatarUrl,
       bio: bio ?? this.bio,
+      country: country ?? this.country,
+      birthdate: birthdate ?? this.birthdate,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
       rowid: rowid ?? this.rowid,
@@ -320,6 +447,12 @@ class ProfilesCompanion extends drift.UpdateCompanion<Profile> {
     if (username.present) {
       map['username'] = drift.Variable<String>(username.value);
     }
+    if (userHandle.present) {
+      map['user_handle'] = drift.Variable<String>(userHandle.value);
+    }
+    if (email.present) {
+      map['email'] = drift.Variable<String>(email.value);
+    }
     if (fullName.present) {
       map['full_name'] = drift.Variable<String>(fullName.value);
     }
@@ -328,6 +461,12 @@ class ProfilesCompanion extends drift.UpdateCompanion<Profile> {
     }
     if (bio.present) {
       map['bio'] = drift.Variable<String>(bio.value);
+    }
+    if (country.present) {
+      map['country'] = drift.Variable<String>(country.value);
+    }
+    if (birthdate.present) {
+      map['birthdate'] = drift.Variable<DateTime>(birthdate.value);
     }
     if (createdAt.present) {
       map['created_at'] = drift.Variable<DateTime>(createdAt.value);
@@ -346,9 +485,13 @@ class ProfilesCompanion extends drift.UpdateCompanion<Profile> {
     return (StringBuffer('ProfilesCompanion(')
           ..write('id: $id, ')
           ..write('username: $username, ')
+          ..write('userHandle: $userHandle, ')
+          ..write('email: $email, ')
           ..write('fullName: $fullName, ')
           ..write('avatarUrl: $avatarUrl, ')
           ..write('bio: $bio, ')
+          ..write('country: $country, ')
+          ..write('birthdate: $birthdate, ')
           ..write('createdAt: $createdAt, ')
           ..write('updatedAt: $updatedAt, ')
           ..write('rowid: $rowid')
@@ -2842,9 +2985,13 @@ abstract class _$AppDatabase extends drift.GeneratedDatabase {
 typedef $$ProfilesTableCreateCompanionBuilder = ProfilesCompanion Function({
   required String id,
   required String username,
+  required String userHandle,
+  required String email,
   required String fullName,
   drift.Value<String?> avatarUrl,
   drift.Value<String?> bio,
+  drift.Value<String?> country,
+  drift.Value<DateTime?> birthdate,
   drift.Value<DateTime> createdAt,
   drift.Value<DateTime> updatedAt,
   drift.Value<int> rowid,
@@ -2852,9 +2999,13 @@ typedef $$ProfilesTableCreateCompanionBuilder = ProfilesCompanion Function({
 typedef $$ProfilesTableUpdateCompanionBuilder = ProfilesCompanion Function({
   drift.Value<String> id,
   drift.Value<String> username,
+  drift.Value<String> userHandle,
+  drift.Value<String> email,
   drift.Value<String> fullName,
   drift.Value<String?> avatarUrl,
   drift.Value<String?> bio,
+  drift.Value<String?> country,
+  drift.Value<DateTime?> birthdate,
   drift.Value<DateTime> createdAt,
   drift.Value<DateTime> updatedAt,
   drift.Value<int> rowid,
@@ -2917,11 +3068,19 @@ class $$ProfilesTableFilterComposer extends drift.Composer<_$AppDatabase, $Profi
 
   drift.ColumnFilters<String> get username => $composableBuilder(column: $table.username, builder: (column) => drift.ColumnFilters(column));
 
+  drift.ColumnFilters<String> get userHandle => $composableBuilder(column: $table.userHandle, builder: (column) => drift.ColumnFilters(column));
+
+  drift.ColumnFilters<String> get email => $composableBuilder(column: $table.email, builder: (column) => drift.ColumnFilters(column));
+
   drift.ColumnFilters<String> get fullName => $composableBuilder(column: $table.fullName, builder: (column) => drift.ColumnFilters(column));
 
   drift.ColumnFilters<String> get avatarUrl => $composableBuilder(column: $table.avatarUrl, builder: (column) => drift.ColumnFilters(column));
 
   drift.ColumnFilters<String> get bio => $composableBuilder(column: $table.bio, builder: (column) => drift.ColumnFilters(column));
+
+  drift.ColumnFilters<String> get country => $composableBuilder(column: $table.country, builder: (column) => drift.ColumnFilters(column));
+
+  drift.ColumnFilters<DateTime> get birthdate => $composableBuilder(column: $table.birthdate, builder: (column) => drift.ColumnFilters(column));
 
   drift.ColumnFilters<DateTime> get createdAt => $composableBuilder(column: $table.createdAt, builder: (column) => drift.ColumnFilters(column));
 
@@ -3005,11 +3164,19 @@ class $$ProfilesTableOrderingComposer extends drift.Composer<_$AppDatabase, $Pro
 
   drift.ColumnOrderings<String> get username => $composableBuilder(column: $table.username, builder: (column) => drift.ColumnOrderings(column));
 
+  drift.ColumnOrderings<String> get userHandle => $composableBuilder(column: $table.userHandle, builder: (column) => drift.ColumnOrderings(column));
+
+  drift.ColumnOrderings<String> get email => $composableBuilder(column: $table.email, builder: (column) => drift.ColumnOrderings(column));
+
   drift.ColumnOrderings<String> get fullName => $composableBuilder(column: $table.fullName, builder: (column) => drift.ColumnOrderings(column));
 
   drift.ColumnOrderings<String> get avatarUrl => $composableBuilder(column: $table.avatarUrl, builder: (column) => drift.ColumnOrderings(column));
 
   drift.ColumnOrderings<String> get bio => $composableBuilder(column: $table.bio, builder: (column) => drift.ColumnOrderings(column));
+
+  drift.ColumnOrderings<String> get country => $composableBuilder(column: $table.country, builder: (column) => drift.ColumnOrderings(column));
+
+  drift.ColumnOrderings<DateTime> get birthdate => $composableBuilder(column: $table.birthdate, builder: (column) => drift.ColumnOrderings(column));
 
   drift.ColumnOrderings<DateTime> get createdAt => $composableBuilder(column: $table.createdAt, builder: (column) => drift.ColumnOrderings(column));
 
@@ -3029,11 +3196,19 @@ class $$ProfilesTableAnnotationComposer extends drift.Composer<_$AppDatabase, $P
 
   drift.GeneratedColumn<String> get username => $composableBuilder(column: $table.username, builder: (column) => column);
 
+  drift.GeneratedColumn<String> get userHandle => $composableBuilder(column: $table.userHandle, builder: (column) => column);
+
+  drift.GeneratedColumn<String> get email => $composableBuilder(column: $table.email, builder: (column) => column);
+
   drift.GeneratedColumn<String> get fullName => $composableBuilder(column: $table.fullName, builder: (column) => column);
 
   drift.GeneratedColumn<String> get avatarUrl => $composableBuilder(column: $table.avatarUrl, builder: (column) => column);
 
   drift.GeneratedColumn<String> get bio => $composableBuilder(column: $table.bio, builder: (column) => column);
+
+  drift.GeneratedColumn<String> get country => $composableBuilder(column: $table.country, builder: (column) => column);
+
+  drift.GeneratedColumn<DateTime> get birthdate => $composableBuilder(column: $table.birthdate, builder: (column) => column);
 
   drift.GeneratedColumn<DateTime> get createdAt => $composableBuilder(column: $table.createdAt, builder: (column) => column);
 
@@ -3126,9 +3301,13 @@ class $$ProfilesTableTableManager extends drift.RootTableManager<
           updateCompanionCallback: ({
             drift.Value<String> id = const drift.Value.absent(),
             drift.Value<String> username = const drift.Value.absent(),
+            drift.Value<String> userHandle = const drift.Value.absent(),
+            drift.Value<String> email = const drift.Value.absent(),
             drift.Value<String> fullName = const drift.Value.absent(),
             drift.Value<String?> avatarUrl = const drift.Value.absent(),
             drift.Value<String?> bio = const drift.Value.absent(),
+            drift.Value<String?> country = const drift.Value.absent(),
+            drift.Value<DateTime?> birthdate = const drift.Value.absent(),
             drift.Value<DateTime> createdAt = const drift.Value.absent(),
             drift.Value<DateTime> updatedAt = const drift.Value.absent(),
             drift.Value<int> rowid = const drift.Value.absent(),
@@ -3136,9 +3315,13 @@ class $$ProfilesTableTableManager extends drift.RootTableManager<
               ProfilesCompanion(
             id: id,
             username: username,
+            userHandle: userHandle,
+            email: email,
             fullName: fullName,
             avatarUrl: avatarUrl,
             bio: bio,
+            country: country,
+            birthdate: birthdate,
             createdAt: createdAt,
             updatedAt: updatedAt,
             rowid: rowid,
@@ -3146,9 +3329,13 @@ class $$ProfilesTableTableManager extends drift.RootTableManager<
           createCompanionCallback: ({
             required String id,
             required String username,
+            required String userHandle,
+            required String email,
             required String fullName,
             drift.Value<String?> avatarUrl = const drift.Value.absent(),
             drift.Value<String?> bio = const drift.Value.absent(),
+            drift.Value<String?> country = const drift.Value.absent(),
+            drift.Value<DateTime?> birthdate = const drift.Value.absent(),
             drift.Value<DateTime> createdAt = const drift.Value.absent(),
             drift.Value<DateTime> updatedAt = const drift.Value.absent(),
             drift.Value<int> rowid = const drift.Value.absent(),
@@ -3156,9 +3343,13 @@ class $$ProfilesTableTableManager extends drift.RootTableManager<
               ProfilesCompanion.insert(
             id: id,
             username: username,
+            userHandle: userHandle,
+            email: email,
             fullName: fullName,
             avatarUrl: avatarUrl,
             bio: bio,
+            country: country,
+            birthdate: birthdate,
             createdAt: createdAt,
             updatedAt: updatedAt,
             rowid: rowid,
