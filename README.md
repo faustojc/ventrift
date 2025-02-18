@@ -69,7 +69,7 @@ socially. This project leverages:
 5. Generate the env for the app to use by running the command in terminal:
 
    ```bash
-   dart run build_runner build --delete-conflicting-outputs
+   dart run build_runner build
    ```
 
 6. Run the app on your preferred device/emulator:
