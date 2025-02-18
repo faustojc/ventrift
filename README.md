@@ -114,10 +114,10 @@ lib/
 ```
 
 Key points:
-• blocs/ contains all BLoC and Cubit classes, organized by feature.
-• data/ includes models, repositories (Supabase, offline, etc.), and local DB definitions.
-• presentation/ is strictly for UI.
-• Keep UI logic out of BLoC; **keep business logic away from UI.**
+- blocs/ contains all BLoC and Cubit classes, organized by feature.
+- data/ includes models, repositories (Supabase, offline, etc.), and local DB definitions.
+- presentation/ is strictly for UI.
+- Keep UI logic out of BLoC; **keep business logic away from UI.**
 
 ---
 
@@ -147,9 +147,9 @@ Please follow this pattern for each feature to keep the architecture consistent.
 ## 4. Database and Backend (Supabase)
 
 We use Supabase as our main PostgreSQL backend:
-• All environment variables (URL, keys) should be stored in `.env` or in the app config.
-• Data access: Use repository classes in `lib/repositories/` to interact with database.
-• Handle errors gracefully and emit the appropriate states in your BLoCs/Cubits.
+- All environment variables (URL, keys) should be stored in `.env` or in the app config.
+- Data access: Use repository classes in `lib/repositories/` to interact with database.
+- Handle errors gracefully and emit the appropriate states in your BLoCs/Cubits.
 
 For any schema changes or new endpoints, document them (we will implement it later) or in commit
 messages.
@@ -173,20 +173,20 @@ messages.
    • Use prefixes like `feature/` or `fix/`. For example: `feature/user-profile`.
 
 2. Pull Requests:
-   • Create a PR to the main branch.
-   • Tag at least one reviewer for approval.
+   - Create a PR to the main branch.
+   - Tag at least one reviewer for approval.
 
 3. Code Style:
-   • Follow Dart/Flutter best practices.
-   • Honor lint rules (check `analysis_options.yaml`).
+   - Follow Dart/Flutter best practices.
+   - Honor lint rules (check `analysis_options.yaml`).
 
 4. Testing:
-   • Write or update tests for new features, fixes, or modules.
-   • Run tests with `flutter test`.
+   - Write or update tests for new features, fixes, or modules.
+   - Run tests with `flutter test`.
 
 5. Commit Messages:
-   • Keep them descriptive and concise.
-   • Reference issues (e.g., `resolves #ID`) when applicable.
+   - Keep them descriptive and concise.
+   - Reference issues (e.g., `resolves #ID`) when applicable.
 
 ---
 
