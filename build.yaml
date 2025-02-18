@@ -1,5 +1,6 @@
 targets:
   $default:
-    sources:
-      exclude:
-        - lib/data/sources
+    builders:
+      envied_generator:
+        generate_for:
+          - lib/env/*.dart
