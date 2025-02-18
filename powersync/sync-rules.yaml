@@ -4,12 +4,15 @@ bucket_definitions:
   global:
     data:
       # Sync all rows
-      - SELECT * FROM mytable
-      # Only sync some rows
-      - SELECT * FROM mytable WHERE mycolumn = false
+      - SELECT * FROM places
   by_user: 
     # Only sync rows belonging to the user
     parameters: SELECT request.user_id() as user_id
     data:
-    - SELECT * FROM mytable WHERE mytable.user_id = bucket.user_id
+    - SELECT * FROM profiles WHERE profiles.id = bucket.user_id
+    - SELECT * FROM posts WHERE posts.profile_id = bucket.user_id
+    - SELECT * FROM follows WHERE follows.follower_id = bucket.user_id
+    - SELECT * FROM comments WHERE comments.profile_id = bucket.user_id
+    - SELECT * FROM medias WHERE medias.profile_id = bucket.user_id
+    - SELECT * FROM ratings WHERE ratings.profile_id = bucket.user_id
   
