@@ -125,11 +125,11 @@ Key points:
 
 We follow the BLoC architecture to separate presentation from business logic:
 
-• Cubits and/or BLoCs handle the logic of fetching, updating, or processing data.
-• The UI “listens” to changes in state and rebuilds appropriately.
-• Events and States: BLoCs typically have dedicated event and state classes. Cubits typically manage
+- Cubits and/or BLoCs handle the logic of fetching, updating, or processing data.
+- The UI “listens” to changes in state and rebuilds appropriately.
+- Events and States: BLoCs typically have dedicated event and state classes. Cubits typically manage
 states alone.
-• Repositories: BLoCs communicate with repositories, which interface with Supabase or Drift.
+- Repositories: BLoCs communicate with repositories, which interface with Supabase or Drift.
 
 Example folder structure for a feature named "Auth":
 
