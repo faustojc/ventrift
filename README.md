@@ -31,6 +31,7 @@ socially. This project leverages:
 - A configured Supabase project (frontend credentials required)
 - Powersync account (already configured)
 - Basic familiarity with the BLoC architecture for Flutter
+- **ANDROID**: Java 17 (>=17.0.0) ONLY
 
 ### Installation
 
