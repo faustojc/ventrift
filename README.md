@@ -53,9 +53,10 @@ socially. This project leverages:
    ```
 
 4. Configure environment variables `.env` file for Supabase and Powersync keys
-    - Ask the `.env` from Project Lead
+    - Ask the `.env` contents from Project Lead.
+    - Create `.env` file at the project root.
     - Fill in `SUPABASE_PROJECT_URL`, `SUPABASE_STORAGE_URL`, `SUPABASE_ANON_KEY`, and
-      `POWERSYNC_ENDPOINT`
+      `POWERSYNC_ENDPOINT`.
 
    Example:
 
@@ -170,7 +171,8 @@ messages.
 ## 6. Contributing Guidelines
 
 1. Branch Naming:
-   • Use prefixes like `feature/` or `fix/`. For example: `feature/user-profile`.
+   - Use prefixes like `feature/` or `fix/`.
+   - For example: `feature/user-profile`.
 
 2. Pull Requests:
    - Create a PR to the main branch.
