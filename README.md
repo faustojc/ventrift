@@ -170,7 +170,8 @@ messages.
 ## 6. Contributing Guidelines
 
 1. Branch Naming:
-   • Use prefixes like `feature/` or `fix/`. For example: `feature/user-profile`.
+   - Use prefixes like `feature/` or `fix/`.
+   - For example: `feature/user-profile`.
 
 2. Pull Requests:
    - Create a PR to the main branch.
