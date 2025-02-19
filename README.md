@@ -53,9 +53,10 @@ socially. This project leverages:
    ```
 
 4. Configure environment variables `.env` file for Supabase and Powersync keys
-    - Ask the `.env` from Project Lead
+    - Ask the `.env` contents from Project Lead.
+    - Create `.env` file at the project root.
     - Fill in `SUPABASE_PROJECT_URL`, `SUPABASE_STORAGE_URL`, `SUPABASE_ANON_KEY`, and
-      `POWERSYNC_ENDPOINT`
+      `POWERSYNC_ENDPOINT`.
 
    Example:
 
