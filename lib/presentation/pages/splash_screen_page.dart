@@ -1,34 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:ventrift/presentation/pages/home_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart' show FlutterNativeSplash;
+import 'package:ventrift/data/sources/connector_backend.dart';
+import 'package:ventrift/domain/routes/app_routes.dart';
+import 'package:ventrift/presentation/blocs/auth/auth_bloc.dart';
 
-class SplashScreenPage extends StatefulWidget {
+class SplashScreenPage extends StatelessWidget {
   const SplashScreenPage({super.key});
 
   @override
-  State<SplashScreenPage> createState() => _SplashScreenPageState();
-}
+  Widget build(BuildContext context) => BlocListener<AuthBloc, AuthState>(
+        listener: (context, state) async {
+          if (state is Authenticated) {
+            // always check if the PowerSync is synced to prevent data loss
+            await ConnectorBackend.instance.checkSync();
 
-class _SplashScreenPageState extends State<SplashScreenPage> {
-  @override
-  void initState() {
-    super.initState();
-    _simulateDataLoading(context);
-  }
+            // fetch all user's data only once (profiles, posts, etc.)
+            // Navigate to home page
 
-  Future<void> _simulateDataLoading(BuildContext context) async {
-    await Future.delayed(Duration.zero);
-
-    if (context.mounted) {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const HomePage()),
+            if (context.mounted) {
+              Navigator.of(context).pushReplacement(AppRoutes.homePage);
+              FlutterNativeSplash.remove();
+            }
+          } else if (state is Unauthenticated) {
+            Navigator.of(context).pushReplacement(AppRoutes.loginPage);
+            FlutterNativeSplash.remove();
+          }
+        },
+        child: Container(),
       );
-      FlutterNativeSplash.remove();
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
 }

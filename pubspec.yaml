@@ -49,6 +49,7 @@ dependencies:
   fast_cached_network_image: ^1.3.3+5
   flutter_native_splash: ^2.4.5
   flutter_launcher_icons: ^0.14.3
+  fast_equatable: ^1.1.0
 
 dev_dependencies:
   flutter_test:
