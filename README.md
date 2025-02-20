@@ -27,7 +27,7 @@ socially. This project leverages:
 
 ### Prerequisites
 
-- Flutter SDK (>=3.4.3 <4.0.0) see `pubspect.yaml` at environment
+- Flutter SDK (>=3.4.3 <4.0.0) see `pubspect.yaml` for version control
 - A configured Supabase project (frontend credentials required)
 - Powersync account (already configured)
 - Basic familiarity with the BLoC architecture for Flutter
@@ -54,19 +54,13 @@ socially. This project leverages:
    ```
 
 4. Configure environment variables `.env` file for Supabase and Powersync keys
-    - Ask the `.env` contents from Project Lead.
     - Create `.env` file at the project root.
-    - Fill in `SUPABASE_PROJECT_URL`, `SUPABASE_STORAGE_URL`, `SUPABASE_ANON_KEY`, and
+    - Retrieve `.env` content from a project lead.
+    - Fill in the missing keys with the retrieved contents:
+      `SUPABASE_PROJECT_URL`,
+      `SUPABASE_STORAGE_URL`,
+      `SUPABASE_ANON_KEY`, 
       `POWERSYNC_ENDPOINT`.
-
-   Example:
-
-    ```.env
-    SUPABASE_PROJECT_URL="supabase-project-url"
-    SUPABASE_STORAGE_URL="supabase-storage-url"
-    SUPABASE_ANON_KEY="supabase-anon-key"
-    POWERSYNC_ENDPOINT="powersync-endpoint"
-    ```
 
 5. Generate the env for the app to use by running the command in terminal:
 
@@ -84,7 +78,7 @@ socially. This project leverages:
 
 ## 2. Project Structure
 
-We use the following folder layout to maintain clarity and consistency:
+The following folder layout is used to maintain clarity and consistency:
 
 ```
 lib/
@@ -125,7 +119,7 @@ Key points:
 
 ## 3. State Management (BLoC Architecture)
 
-We follow the BLoC architecture to separate presentation from business logic:
+The BLoC architecture is used to separate the presentation side from business logic:
 
 - Cubits and/or BLoCs handle the logic of fetching, updating, or processing data.
 - The UI “listens” to changes in state and rebuilds appropriately.
@@ -148,7 +142,7 @@ Please follow this pattern for each feature to keep the architecture consistent.
 
 ## 4. Database and Backend (Supabase)
 
-We use Supabase as our main PostgreSQL backend:
+Supabase is used as our main PostgreSQL backend:
 - All environment variables (URL, keys) should be stored in `.env` or in the app config.
 - Data access: Use repository classes in `lib/repositories/` to interact with database.
 - Handle errors gracefully and emit the appropriate states in your BLoCs/Cubits.
@@ -164,8 +158,8 @@ messages.
 - Powersync ensures local changes sync to Supabase when the device goes back online.
 - Drift table definitions and DAOs located at `lib/data/sources/database.g.dart`.
 - For each feature, outline how offline data updates the UI.
-- If you modify local schemas, ensure they’re reflected in the Powersync configurations. Contact me
-  **(Fausto JC Boko)** for assistance
+- If you modify local schemas, ensure they’re reflected in the Powersync configurations.
+  Contact **(Fausto JC Boko)** before making any changes.
 
 ---
 
@@ -197,7 +191,7 @@ messages.
 
 For questions or discussions:
 
-- Project Lead: Gabriel Lopez, Fausto JC Boko
+- Project Leads: Gabriel Lopez, Fausto JC Boko
 - GitHub Wiki **(TBA)**: Detailed docs about setups, additional guidelines, or advanced info
 
 Thank you for following these guidelines to keep our development process smooth and consistent!
