@@ -4,6 +4,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart' show FlutterNa
 import 'package:ventrift/data/sources/connector_backend.dart';
 import 'package:ventrift/domain/routes/app_routes.dart';
 import 'package:ventrift/presentation/blocs/auth/auth_bloc.dart';
+import 'package:ventrift/presentation/blocs/profile/profile_bloc.dart';
 
 class SplashScreenPage extends StatelessWidget {
   const SplashScreenPage({super.key});
@@ -17,8 +18,10 @@ class SplashScreenPage extends StatelessWidget {
 
             // fetch all user's data only once (profiles, posts, etc.)
             // Navigate to home page
-
             if (context.mounted) {
+              BlocProvider.of<ProfileBloc>(context).add(ProfileInitialize());
+              // ...add other events to fetch other user's important data
+
               Navigator.of(context).pushReplacement(AppRoutes.homePage);
               FlutterNativeSplash.remove();
             }
