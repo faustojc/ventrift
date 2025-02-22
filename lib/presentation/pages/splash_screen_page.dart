@@ -20,7 +20,6 @@ class SplashScreenPage extends StatelessWidget {
             // Navigate to home page
             if (context.mounted) {
               BlocProvider.of<ProfileBloc>(context).add(ProfileInitialize());
-              // ...add other events to fetch other user's important data
 
               Navigator.of(context).pushReplacement(AppRoutes.homePage);
               FlutterNativeSplash.remove();

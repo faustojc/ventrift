@@ -3,12 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:ventrift/data/dao/posts_dao.dart';
+import 'package:ventrift/data/dao/profiles_dao.dart';
 import 'package:ventrift/data/sources/connector_backend.dart';
 import 'package:ventrift/domain/providers/image_path_provider.dart' show ImagePathProvider;
 import 'package:ventrift/domain/repositories/auth_repo.dart';
+import 'package:ventrift/domain/repositories/post_repo.dart';
 import 'package:ventrift/domain/repositories/profile_repo.dart';
 import 'package:ventrift/presentation/blocs/auth/auth_bloc.dart';
 import 'package:ventrift/presentation/blocs/counter_cubit.dart';
+import 'package:ventrift/presentation/blocs/home_feed/home_feed_bloc.dart';
 import 'package:ventrift/presentation/blocs/profile/profile_bloc.dart';
 import 'package:ventrift/presentation/pages/splash_screen_page.dart';
 
@@ -44,7 +48,8 @@ class MyApp extends StatelessWidget {
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider(create: (context) => AuthRepo()),
-        RepositoryProvider(create: (context) => ProfileRepo()),
+        RepositoryProvider(create: (context) => ProfileRepo(ProfilesDao(appDatabase))),
+        RepositoryProvider(create: (context) => PostRepo(PostsDao(appDatabase))),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -60,6 +65,11 @@ class MyApp extends StatelessWidget {
             create: (context) => ProfileBloc(
               authRepo: RepositoryProvider.of<AuthRepo>(context),
               profileRepo: RepositoryProvider.of<ProfileRepo>(context),
+            ),
+          ),
+          BlocProvider<HomeFeedBloc>(
+            create: (context) => HomeFeedBloc(
+              RepositoryProvider.of<PostRepo>(context),
             ),
           ),
         ],

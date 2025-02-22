@@ -50,6 +50,7 @@ dependencies:
   flutter_native_splash: ^2.4.5
   flutter_launcher_icons: ^0.14.3
   fast_equatable: ^1.1.0
+  rxdart: ^0.28.0
 
 dev_dependencies:
   flutter_test:

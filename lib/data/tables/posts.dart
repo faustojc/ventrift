@@ -10,7 +10,7 @@ class Posts extends Table {
       .named('id')
       .customConstraint('PRIMARY KEY NOT NULL')();
   TextColumn get profileId => text().named('profile_id').references(Profiles, #id)();
-  TextColumn get placeId => text().nullable().named('place_id').references(Places, #id)();
+  TextColumn get placeId => text().named('place_id').references(Places, #id)();
 
   TextColumn get content => text()();
   BoolColumn get isEdited => boolean().named('is_edited').withDefault(const Constant(false))();
