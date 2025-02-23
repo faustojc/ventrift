@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '/widgets/RegisterPage/register_indexes.dart';
+import '/components/RegisterPage/register_indexes.dart';
 
 class RegisterPage extends StatelessWidget {
   final double textHeight;
