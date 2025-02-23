@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '/components/RegisterPage/register_indexes.dart';
+import 'package:ventrift/presentation/components/register_page/register_indexes.dart';
 
 class RegisterPage extends StatelessWidget {
   final double textHeight;
@@ -47,8 +47,7 @@ class RegisterPage extends StatelessWidget {
               SizedBox(height: textHeight),
 
               /// Retype Password
-              const RegisterTextfield(
-                  hintText: "Re-type Password", obscureText: true),
+              const RegisterTextfield(hintText: "Re-type Password", obscureText: true),
               SizedBox(height: textHeight),
 
               /// Divider
@@ -57,7 +56,7 @@ class RegisterPage extends StatelessWidget {
               /// Privacy Policy
               PrivacyPolicyText(
                 onPrivacyPolicyTap: () {
-                  print("ROUTE THIS TO PRIVACY POLICY PAGE");
+                  //TODO: ROUTE TO PRIVACY POLICY
                 },
               ),
               SizedBox(height: textHeight),
@@ -65,7 +64,7 @@ class RegisterPage extends StatelessWidget {
               /// Continue Button
               RegisterButton(
                 onPressed: () {
-                  print("PLACEHOLDER, ROUTE TO NEXT PAGE");
+                  // TODO: ROUTE TO NEXT PAGE
                 },
               ),
             ],
