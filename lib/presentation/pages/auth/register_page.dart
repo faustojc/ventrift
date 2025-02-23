@@ -48,6 +48,7 @@ class RegisterPage extends StatelessWidget {
 
               /// Retype Password
               const RegisterTextfield(hintText: "Re-type Password", obscureText: true),
+
               SizedBox(height: textHeight),
 
               /// Divider
@@ -57,6 +58,7 @@ class RegisterPage extends StatelessWidget {
               PrivacyPolicyText(
                 onPrivacyPolicyTap: () {
                   //TODO: ROUTE TO PRIVACY POLICY
+
                 },
               ),
               SizedBox(height: textHeight),
