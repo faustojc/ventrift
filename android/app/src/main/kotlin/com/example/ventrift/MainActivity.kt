@@ -7,7 +7,7 @@ import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugins.GeneratedPluginRegistrant;
 
 class MainActivity : FlutterActivity() {
-    val CHANNEL: String = "com.haiztek.workout_app/app_minimizer"
+    private val CHANNEL: String = "com.ventrift.ventrift/app_minimizer"
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         GeneratedPluginRegistrant.registerWith(flutterEngine)

@@ -13,7 +13,7 @@ class AppMinimizer {
   );
 
   static Future<void> minimizeApp() async {
-    const platform = MethodChannel('com.haiztek.workout_app/app_minimizer');
+    const platform = MethodChannel('com.ventrift.ventrift/app_minimizer');
 
     try {
       if (Platform.isAndroid) {
