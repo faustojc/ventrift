@@ -51,6 +51,8 @@ dependencies:
   flutter_launcher_icons: ^0.14.3
   fast_equatable: ^1.1.0
   rxdart: ^0.28.0
+  flutter_svg: ^2.0.17
+  vector_graphics: ^1.1.18
 
 dev_dependencies:
   flutter_test:
@@ -79,7 +81,8 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-   - assets/logos/logo-color.png
+   - assets/logos/
+   - assets/icons/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -106,3 +109,22 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+  fonts:
+    - family: Lexend
+      fonts:
+        - asset: assets/fonts/Lexend-ExtraLight.ttf
+        - weight: 200
+        - asset: assets/fonts/Lexend-Light.ttf
+        - weight: 300
+        - asset: assets/fonts/Lexend-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Lexend-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Lexend-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Lexend-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Lexend-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/Lexend-Black.ttf
+          weight: 900
