@@ -76,7 +76,18 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           title: 'Flutter Demo',
           theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+            colorScheme: const ColorScheme(
+              brightness: Brightness.dark,
+              primary: Color(0xFF101010),
+              onPrimary: Color(0xFFFFFFFF),
+              secondary: Color(0xFF01C45B),
+              onSecondary: Color(0xFFFFFFFF),
+              error: Colors.red,
+              onError: Colors.red,
+              surface: Color(0xFF101010),
+              onSurface: Color(0xFFFFFFFF),
+            ),
+            fontFamily: 'Lexend',
             useMaterial3: true,
           ),
           home: const SplashScreenPage(),
