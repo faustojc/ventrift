@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ventrift/domain/routes/app_routes.dart';
+import 'package:ventrift/presentation/blocs/form/form_cubit.dart';
+import 'package:ventrift/presentation/components/register_page/register_dob_calendar.dart';
 import 'package:ventrift/presentation/components/register_page/register_indexes.dart';
 
-class RegisterPage extends StatelessWidget {
+class RegisterPage extends StatefulWidget {
   final double textHeight;
 
   const RegisterPage({
@@ -10,66 +14,100 @@ class RegisterPage extends StatelessWidget {
   });
 
   @override
+  State<RegisterPage> createState() => _RegisterPageState();
+}
+
+class _RegisterPageState extends State<RegisterPage> {
+  final _formKey = GlobalKey<FormState>();
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          alignment: Alignment.center,
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(height: 50),
+    return BlocProvider<FormCubit>(
+      create: (context) => FormCubit(),
+      child: Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () => Navigator.pushReplacement(context, AppRoutes.loginPage),
+          ),
+        ),
+        body: Center(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  /// Header Text
+                  const RegisterHeading(),
+                  const SizedBox(height: 30),
 
-              /// Header Text
-              const RegisterHeading(),
-              SizedBox(height: textHeight),
+                  /// Username
+                  const RegisterTextField(
+                    label: 'username',
+                    hintText: "Username",
+                  ),
+                  SizedBox(height: widget.textHeight),
 
-              /// Username
-              const RegisterTextfield(hintText: "Username"),
-              SizedBox(height: textHeight),
+                  /// Full Name
+                  const RegisterTextField(
+                    label: 'full_name',
+                    hintText: "Full Name",
+                  ),
+                  SizedBox(height: widget.textHeight),
 
-              /// Full Name
-              const RegisterTextfield(hintText: "Full Name"),
-              SizedBox(height: textHeight),
+                  /// Email Address
+                  const RegisterTextField(
+                    label: 'email',
+                    hintText: "Email Address",
+                  ),
+                  SizedBox(height: widget.textHeight),
 
-              /// Email Address
-              const RegisterTextfield(hintText: "Email Address"),
-              SizedBox(height: textHeight),
+                  /// Date Of Birth
+                  const RegisterDatePicker(),
+                  SizedBox(height: widget.textHeight),
 
-              /// Date Of Birth
-              const RegisterTextfield(hintText: "DOB-PLACEHOLDERTEST"),
-              SizedBox(height: textHeight),
+                  /// Password
+                  const RegisterTextField(
+                    label: 'password',
+                    hintText: "Password",
+                    isPassword: true,
+                  ),
+                  SizedBox(height: widget.textHeight),
 
-              /// Password
-              const RegisterTextfield(hintText: "Password", obscureText: true),
-              SizedBox(height: textHeight),
+                  /// Retype Password
+                  const RegisterTextField(
+                    label: 'retype_password',
+                    hintText: "Re-type Password",
+                    isPassword: true,
+                  ),
 
-              /// Retype Password
-              const RegisterTextfield(hintText: "Re-type Password", obscureText: true),
+                  SizedBox(height: widget.textHeight),
 
-              SizedBox(height: textHeight),
+                  /// Divider
+                  Divider(color: Theme.of(context).colorScheme.outline, thickness: 1.15),
+                  SizedBox(height: widget.textHeight + 5),
 
-              /// Divider
-              const RegisterDivider(),
+                  /// Privacy Policy
+                  PrivacyPolicyText(
+                    onPrivacyPolicyTap: () {
+                      //TODO: ROUTE TO PRIVACY POLICY
+                    },
+                  ),
+                  SizedBox(height: widget.textHeight + 10),
 
-              /// Privacy Policy
-              PrivacyPolicyText(
-                onPrivacyPolicyTap: () {
-                  //TODO: ROUTE TO PRIVACY POLICY
-
-                },
+                  /// Continue Button
+                  RegisterButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        // TODO: register the user and create profile
+                      }
+                    },
+                  ),
+                ],
               ),
-              SizedBox(height: textHeight),
-
-              /// Continue Button
-              RegisterButton(
-                onPressed: () {
-                  // TODO: ROUTE TO NEXT PAGE
-                },
-              ),
-            ],
+            ),
           ),
         ),
       ),

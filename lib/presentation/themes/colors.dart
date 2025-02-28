@@ -1,5 +1,47 @@
 import 'package:flutter/material.dart';
 
-class AppColors {
-  static const Color ventrift_green = Color(0xFF01C45B);
+final class AppColors {
+  static const Color ventriftGreen = Color(0xFF01C45B);
+
+  static const ColorScheme appScheme = ColorScheme(
+    brightness: Brightness.dark,
+    primary: Color(0xFF101010),
+    onPrimary: Color(0xFFFFFFFF),
+    primaryContainer: Color(0xFF202020),
+    onPrimaryContainer: Color(0xFFD0D0D0),
+    primaryFixed: Color(0xFF303030),
+    primaryFixedDim: Color(0xFF404040),
+    onPrimaryFixed: Color(0xFFFFFFFF),
+    onPrimaryFixedVariant: Color(0xFFB0B0B0),
+    secondary: Color(0xFF01C45B),
+    onSecondary: Color(0xFFFFFFFF),
+    secondaryContainer: Color(0xFF014D24),
+    onSecondaryContainer: Color(0xFFAFFFCB),
+    secondaryFixed: Color(0xFF026E36),
+    secondaryFixedDim: Color(0xFF038048),
+    onSecondaryFixed: Color(0xFFFFFFFF),
+    onSecondaryFixedVariant: Color(0xFFB0F0C5),
+    error: Colors.red,
+    onError: Color(0xFFFFFFFF),
+    errorContainer: Color(0xFFB00020),
+    onErrorContainer: Color(0xFFFFDAD4),
+    surface: Color(0xFF101010),
+    onSurface: Color(0xFFFFFFFF),
+    surfaceDim: Color(0xFF202020),
+    surfaceBright: Color(0xFF303030),
+    surfaceContainerLowest: Color(0xFF101010),
+    surfaceContainerLow: Color(0xFF1A1A1A),
+    surfaceContainer: Color(0xFF202020),
+    surfaceContainerHigh: Color(0xFF303030),
+    surfaceContainerHighest: Color(0xFF404040),
+    onSurfaceVariant: Color(0xFFD0D0D0),
+    outline: Color(0xFFE3E1E1),
+    outlineVariant: Color(0xFF505050),
+    shadow: Color(0xFF000000),
+    scrim: Color(0xFF000000),
+    inverseSurface: Color(0xFFFFFFFF),
+    onInverseSurface: Color(0xFF101010),
+    inversePrimary: Color(0xFFFFFFFF),
+    surfaceTint: Color(0xFF202020),
+  );
 }

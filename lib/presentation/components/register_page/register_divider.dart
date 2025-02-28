@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '/presentation/themes/colors.dart';
 
 class RegisterDivider extends StatelessWidget {
@@ -10,7 +11,7 @@ class RegisterDivider extends StatelessWidget {
     super.key,
     this.thickness = 1.0,
     this.spacing = 15.0,
-    this.color = AppColors.ventrift_green,
+    this.color = AppColors.ventriftGreen,
   });
 
   @override
