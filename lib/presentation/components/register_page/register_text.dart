@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
+
 import '/presentation/themes/colors.dart';
 
 class PrivacyPolicyText extends StatelessWidget {
@@ -13,18 +14,18 @@ class PrivacyPolicyText extends StatelessWidget {
       textAlign: TextAlign.center,
       text: TextSpan(
         text: "By continuing, I accept Ventrift's ",
-        style: const TextStyle(fontSize: 12, color: Colors.black),
+        style: const TextStyle(fontSize: 14, color: Colors.white),
         children: <TextSpan>[
           TextSpan(
             text: "Privacy Policy",
             style: const TextStyle(
-              fontSize: 12,
-              color: AppColors.ventrift_green,
+              fontSize: 14,
+              color: AppColors.ventriftGreen,
               fontWeight: FontWeight.bold,
             ),
             recognizer: TapGestureRecognizer()
               ..onTap = onPrivacyPolicyTap ??
-                      () {
+                  () {
                     print("Debug Privacy Policy Click");
                   },
           ),
@@ -34,18 +35,18 @@ class PrivacyPolicyText extends StatelessWidget {
   }
 }
 
-
 class RegisterHeading extends StatelessWidget {
   const RegisterHeading({super.key});
 
   @override
   Widget build(BuildContext context) {
     return const Align(
-      alignment: Alignment.center,
-      child: Text(
-          "Let's get you in!",
-          style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)
-      ),
+      alignment: Alignment.centerLeft,
+      child: Text("Let's get you in!",
+          style: TextStyle(
+            fontSize: 37,
+            fontWeight: FontWeight.bold,
+          )),
     );
   }
 }

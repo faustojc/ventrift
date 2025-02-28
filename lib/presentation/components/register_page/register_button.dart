@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
+
 import '/presentation/themes/colors.dart';
 
 class RegisterButton extends StatelessWidget {
   final VoidCallback onPressed;
 
-  const RegisterButton({
-    super.key,
-    required this.onPressed
-  });
+  const RegisterButton({super.key, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +15,7 @@ class RegisterButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.ventrift_green,
+          backgroundColor: AppColors.ventriftGreen,
           foregroundColor: Colors.white,
         ),
         child: const Text(

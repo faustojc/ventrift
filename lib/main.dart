@@ -15,6 +15,7 @@ import 'package:ventrift/presentation/blocs/counter_cubit.dart';
 import 'package:ventrift/presentation/blocs/home_feed/home_feed_bloc.dart';
 import 'package:ventrift/presentation/blocs/profile/profile_bloc.dart';
 import 'package:ventrift/presentation/pages/splash_screen_page.dart';
+import 'package:ventrift/presentation/themes/colors.dart';
 
 Future<void> main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -75,8 +76,10 @@ class MyApp extends StatelessWidget {
         ],
         child: MaterialApp(
           title: 'Flutter Demo',
+          debugShowCheckedModeBanner: false,
           theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+            colorScheme: AppColors.appScheme,
+            fontFamily: 'Lexend',
             useMaterial3: true,
           ),
           home: const SplashScreenPage(),
